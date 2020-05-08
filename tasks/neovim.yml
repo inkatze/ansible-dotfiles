@@ -117,7 +117,8 @@
     cmd: bash install.sh
   register: neovim_language_server
   changed_when: "'skip install' not in neovim_language_server.stdout"
-  when: "'LanguageClient-neovim' in (neovim_plugins | map('repo') | list)"
+  loop: "{{ neovim_plugins }}"
+  when: "'LanguageClient-neovim' in item.repo"
 
 - name: Compiling vim-markdown-composer
   command:
@@ -125,4 +126,5 @@
     cmd: cargo build --release --locked
   register: neovim_markdown_composer
   changed_when: neovim_markdown_composer.stderr_lines | length != 1
-  when: "'vim-markdown-composer' in (neovim_plugins | map('repo') | list)"
+  loop: "{{ neovim_plugins }}"
+  when: "'vim-markdown-composer' in item.repo"
