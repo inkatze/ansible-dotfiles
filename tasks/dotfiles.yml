@@ -1,0 +1,88 @@
+---
+
+- name: Creating fish configuration directory
+  file:
+    path: "{{ ansible_env.HOME }}/.config/fish"
+    recurse: yes
+    state: directory
+  when: fish_config_source_file | string
+
+- name: Updating fish configuration
+  copy:
+    src: "{{ fish_config_source_file }}"
+    dest: "{{ ansible_env.HOME }}/.config/fish/config.fish"
+  when: fish_config_source_file | string
+
+- name: Creating iterm2 configuration directory
+  file:
+    path: "{{ ansible_env.HOME }}/.config/iterm2"
+    recurse: yes
+    state: directory
+  when: iterm2_plist_source_file | string
+
+- name: Updating iterm2 configuration
+  copy:
+    src: "{{ iterm2_plist_source_file }}"
+    dest: "{{ ansible_env.HOME }}/.config/iterm2"
+  when: iterm2_plist_source_file | string
+
+- name: Updating git configuration
+  copy:
+    src: "{{ gitconfig_source_file }}"
+    dest: "{{ ansible_env.HOME }}/.gitconfig"
+  when: gitconfig_source_file | string
+
+- name: Creating neovim config directory
+  file:
+    path: "{{ ansible_env.HOME }}/.config/nvim/partials"
+    recurse: yes
+    state: directory
+  when: neovim_config_path | string
+
+- name: Updating configurations folder
+  copy:
+    src: "{{ neovim_config_path }}"
+    dest: "{{ ansible_env.HOME }}/.config/nvim"
+  when: neovim_config_path | string
+
+- name: Updating pylintrc
+  copy:
+    src: "{{ pylintrc_source_file  }}"
+    dest: "{{ ansible_env.HOME  }}/.config/pylintrc"
+  when: pylintrc_source_file | string
+
+- name: Updating npmrc
+  copy:
+    src: "{{ npmrc_source_file }}"
+    dest: "{{ ansible_env.HOME }}/.npmrc"
+  when: npmrc_source_file | string
+
+- name: Updating nvmrc
+  copy:
+    src: "{{ nvmrc_source_file }}"
+    dest: "{{ ansible_env.HOME }}/.nvmrc"
+  when: nvmrc_source_file | string
+
+- name: Updating tmux.conf
+  copy:
+    src: "{{ tmux_source_file }}"
+    dest: "{{ ansible_env.HOME }}/.tmux.conf"
+  when: tmux_source_file | string
+
+- name: Creating rbenv directory
+  file:
+    path: "{{ ansible_env.HOME }}/.rbenv"
+    state: directory
+  when: ruby_global_version_source_file | string
+
+- name: Updating global ruby version
+  copy:
+    src: "{{ ruby_global_version_source_file }}"
+    dest: "{{ ansible_env.HOME }}/.rbenv/version"
+  when: ruby_global_version_source_file | string
+
+- name: Updating my.cnf
+  copy:
+    src: "{{ mysql_config_source_file }}"
+    dest: "{{ ansible_env.HOME }}/.my.cnf"
+  when: mysql_config_source_file | string

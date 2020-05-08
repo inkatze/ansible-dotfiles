@@ -1,0 +1,14 @@
+---
+
+- name: Adding fish to shells
+  lineinfile:
+    path: /etc/shells
+    regexp: '^/usr/local/bin/fish'
+    line: '/usr/local/bin/fish'
+  become: true
+  become_user: root
+
+- name: Changing login shell to fish
+  command: chsh -s /usr/local/bin/fish
+  changed_when: false
+  when: lookup('env','SHELL') != "/usr/local/bin/fish"

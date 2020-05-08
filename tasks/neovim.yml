@@ -1,0 +1,128 @@
+---
+
+- name: Installing neovim formulas
+  homebrew:
+    name: "{{ neovim_formulas }}"
+    state: latest
+  when: neovim_formulas | list
+
+- name: Creating package directory
+  file:
+    path: "{{ ansible_env.HOME }}/.local/share/nvim/site/pack/plugins/start"
+    state: directory
+  when: neovim_formulas | list
+
+- name: Creating color schemes directory
+  file:
+    path: "{{ ansible_env.HOME }}/.local/share/nvim/site/pack/colors/opt"
+    state: directory
+  when: neovim_formulas | list
+
+- name: Installing neovim's node package globally
+  npm:
+    name: "{{ item.name }}"
+    version: "{{ item.version }}"
+    global: yes
+  with_items:
+    - { name: javascript-typescript-langserver, version: latest }
+    - { name: neovim, version: latest }
+    - { name: yaml-language-server, version: 0.4.1 }
+  when: ('node' in neovim_formulas or 'npm' in neovim_formulas)
+
+- name: Checking Installed Python interpreters
+  command: pyenv versions
+  register: pyenv_versions
+  changed_when: false
+  when: ('pyenv' in neovim_formulas)
+
+- name: Storing pyenv root
+  command: pyenv root
+  register: pyenv_root
+  changed_when: false
+  when: ('pyenv' in neovim_formulas)
+
+- name: Installing Python interpreters for neovim
+  command: pyenv install {{ item.version }}
+  when: not (item in (pyenv_versions.stdout_lines | map('trim') | list))
+  with_items: "{{ neovim_python }}"
+
+- name: Creating neovim's Python virtualenvs
+  command: pyenv virtualenv {{ item.version }} {{ item.venv }}
+  when: not (item.venv in (pyenv_versions.stdout_lines | map('trim') | list))
+  with_items: "{{ neovim_python }}"
+
+- name: Installing Python neovim host clients
+  pip:
+    name:
+      - pynvim
+      - neovim
+      - msgpack
+    executable: "{{ pyenv_root.stdout }}/versions/{{ item.version }}/envs/{{ item.venv }}/bin/pip"
+    state: latest
+  with_items: "{{ neovim_python }}"
+
+- name: Checking installed ruby interpreters
+  command: rbenv versions
+  register: ruby_versions
+  changed_when: false
+  when: neovim_ruby_version | string
+
+- name: Installing Ruby interpreter for neovim
+  command: rbenv install {{ neovim_ruby_version }}
+  when: neovim_ruby_version and not (neovim_ruby_version in ruby_versions.stdout)
+
+- name: Installing Ruby's neovim gems
+  gem:
+    name: "{{ item }}"
+    state: latest
+    user_install: no
+  environment:
+    RBENV_VERSION: "{{ neovim_ruby_version }}"
+    RBENV_GEMSETS: global
+  with_items:
+    - neovim
+    - solargraph
+    - bundler
+  when: neovim_ruby_version | string
+
+- name: Rehashing environments
+  command: "{{ item }} rehash"
+  with_items:
+    - pyenv
+    - rbenv
+  changed_when: false
+  when: neovim_ruby_version | string
+
+- name: Installing neovim plugins
+  git:
+    repo: "{{ item.repo }}"
+    depth: "1"
+    force: yes
+    recursive: yes
+    dest: "{{ ansible_env.HOME }}/.local/share/nvim/site/pack/plugins/start/{{ item.name }}"
+  with_items: "{{ neovim_plugins }}"
+
+- name: Installing neovim color schemes
+  git:
+    repo: "{{ item.repo }}"
+    depth: "1"
+    force: yes
+    recursive: yes
+    dest: "{{ ansible_env.HOME }}/.local/share/nvim/site/pack/colors/opt/{{ item.name }}"
+  with_items: "{{ neovim_colorschemes }}"
+
+- name: Installing language server
+  command:
+    chdir: "{{ ansible_env.HOME }}/.local/share/nvim/site/pack/plugins/start/LanguageClient-neovim"
+    cmd: bash install.sh
+  register: neovim_language_server
+  changed_when: "'skip install' not in neovim_language_server.stdout"
+  when: "'LanguageClient-neovim' in (neovim_plugins | map('repo') | list)"
+
+- name: Compiling vim-markdown-composer
+  command:
+    chdir: "{{ ansible_env.HOME }}/.local/share/nvim/site/pack/plugins/start/vim-markdown-composer"
+    cmd: cargo build --release --locked
+  register: neovim_markdown_composer
+  changed_when: neovim_markdown_composer.stderr_lines | length != 1
+  when: "'vim-markdown-composer' in (neovim_plugins | map('repo') | list)"

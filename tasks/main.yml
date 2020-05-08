@@ -1,0 +1,42 @@
+---
+
+- import_tasks: homebrew.yml
+  tags:
+    - homebrew
+
+- import_tasks: gpg.yml
+  tags:
+    - gpg
+
+- import_tasks: ssh.yml
+  tags:
+    - ssh
+
+- import_tasks: dotfiles.yml
+  tags:
+    - dotfiles
+
+- import_tasks: fish.yml
+  tags:
+    - fish
+
+- import_tasks: tmux.yml
+  tags:
+    - tmux
+
+- import_tasks: neovim.yml
+  tags:
+    - neovim
+
+- import_tasks: osx.yml
+  tags:
+    - osx
+
+- import_tasks: mas.yml
+  tags:
+    - mas
+  when: mas_formulas | list
+
+- import_tasks: shell.yml
+  tags:
+    - shell

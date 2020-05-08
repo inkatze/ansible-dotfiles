@@ -1,0 +1,16 @@
+---
+
+- name: Installing tmux formulas
+  homebrew:
+    name: "{{ tmux_formulas }}"
+    state: latest
+    update_homebrew: yes
+
+- name: Updating tmux theme
+  git:
+    repo: https://github.com/jimeh/tmux-themepack.git
+    depth: "1"
+    force: yes
+    recursive: yes
+    dest:  "{{ ansible_env.HOME }}/.tmux-themepack"
+  when: tmux_formulas | list

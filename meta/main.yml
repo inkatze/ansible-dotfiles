@@ -1,0 +1,18 @@
+---
+
+galaxy_info:
+  company: "-"
+  author: Diego Romero
+  description: Local environment setup with dotfiles
+  license: BSD
+  min_ansible_version: 2.4
+  platforms:
+    - name: macOS
+      versions:
+        - High-Sierra
+  galaxy_tags:
+    - dotfiles
+    - osx
+    - mac
+    - macos
+    - macosx

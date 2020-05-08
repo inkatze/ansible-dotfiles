@@ -1,0 +1,51 @@
+---
+
+# homebrew.yml
+homebrew_taps: []
+homebrew_formulas: []
+homebrew_cask_applications: []
+
+# gpg.yml
+gpg_formulas: []
+gpg_base_source_path: ''
+gpg_agent_conf_source_file: ''
+gpg_keys: []
+
+# ssh.yml
+ssh_keys: []
+ssh_config: ''
+
+# dotfiles.yml
+fish_config_source_file: ''
+iterm2_plist_source_file: ''  # path to the plist file with your configuration
+gitconfig_source_file: ''
+neovim_config_path: ''
+pylintrc_source_file: ''
+npmrc_source_file: ''
+nvmrc_source_file: ''
+tmux_source_file: ''
+ruby_global_version_source_file: ''
+mysql_config_source_file: ''
+
+# fish.yml
+fish_formulas: []
+fish_config_source_path: ''
+fish_plugins: []
+
+# tmux
+tmux_formulas: []
+
+# mas.yml
+mas_formulas: []
+mas_applications: []
+
+# neovim.yml
+neovim_formulas: []
+neovim_python: []
+neovim_ruby_version: ''
+neovim_plugins: []
+neovim_colorschemes: []
+
+# osx.yml
+osx_defaults: []
+osx_dict_defaults: []
