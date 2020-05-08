@@ -20,16 +20,15 @@
     dest: "{{ ansible_env.HOME }}/.gnupg/gpg-agent.conf"
   when: gpg_agent_conf_source_file | string
 
-
-- name: Checking gpg keys
-  command: gpg -a --export {{ item.id }}
-  register: gpg_export
-  changed_when: false
-  with_items: "{{ gpg_keys }}"
-
 - name: Installing gpg keys
   no_log: yes
   block:
+    - name: Checking gpg keys
+      command: gpg -a --export {{ item.id }}
+      register: gpg_export
+      changed_when: false
+      with_items: "{{ gpg_keys }}"
+
     - name: Copying gpg public key to temp file
       copy:
         src: "{{ gpg_base_source_path }}/{{ item.item.public }}"
