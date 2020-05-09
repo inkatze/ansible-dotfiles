@@ -12,7 +12,7 @@ gpg_agent_conf_source_file: ''
 gpg_keys: []
 
 # ssh.yml
-ssh_keys: []
+ssh_source_path: ''
 ssh_config: ''
 
 # dotfiles.yml
