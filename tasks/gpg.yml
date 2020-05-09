@@ -54,6 +54,9 @@
       command: gpg --import /tmp/gpg_private_{{ item.item.private }}
       when: item.stderr
       with_items: "{{ gpg_export.results }}"
+  rescue:
+    - debug: msg="Deleting tempfiles from failed installation"
+      no_log: no
   always:
     - name: Deleting gpg public key temp file
       file:

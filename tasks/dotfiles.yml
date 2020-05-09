@@ -34,7 +34,7 @@
 
 - name: Creating neovim config directory
   file:
-    path: "{{ ansible_env.HOME }}/.config/nvim/partials"
+    path: "{{ ansible_env.HOME }}/.config/nvim"
     recurse: yes
     state: directory
   when: neovim_config_path | string
