@@ -33,17 +33,17 @@
   command: pyenv versions
   register: pyenv_versions
   changed_when: false
-  when: ('pyenv' in neovim_formulas)
+  when: "'pyenv' in neovim_formulas"
 
 - name: Storing pyenv root
   command: pyenv root
   register: pyenv_root
   changed_when: false
-  when: ('pyenv' in neovim_formulas)
+  when: "'pyenv' in neovim_formulas"
 
 - name: Installing Python interpreters for neovim
   command: pyenv install {{ item.version }}
-  when: not (item in (pyenv_versions.stdout_lines | map('trim') | list))
+  when: not (item.version in (pyenv_versions.stdout_lines | map('trim') | list))
   with_items: "{{ neovim_python }}"
 
 - name: Creating neovim's Python virtualenvs
@@ -76,6 +76,7 @@
     name: "{{ item }}"
     state: latest
     user_install: no
+    executable: "{{ ansible_env.HOME }}/.rbenv/versions/{{ neovim_ruby_version }}/bin/gem"
   environment:
     RBENV_VERSION: "{{ neovim_ruby_version }}"
     RBENV_GEMSETS: global
