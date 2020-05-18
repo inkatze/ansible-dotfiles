@@ -6,17 +6,13 @@
     state: latest
   when: neovim_formulas | list
 
-- name: Creating package directory
-  file:
-    path: "{{ ansible_env.HOME }}/.local/share/nvim/site/pack/plugins/start"
-    state: directory
-  when: neovim_formulas | list
-
-- name: Creating color schemes directory
-  file:
-    path: "{{ ansible_env.HOME }}/.local/share/nvim/site/pack/colors/opt"
-    state: directory
-  when: neovim_formulas | list
+- name: Installing vim-plug
+  git:
+    repo: https://github.com/junegunn/vim-plug.git
+    depth: "1"
+    force: yes
+    recursive: yes
+    dest: "{{ ansible_env.HOME }}/.local/share/nvim/site/autoload"
 
 - name: Installing neovim's node package globally
   npm:
@@ -93,39 +89,3 @@
     - rbenv
   changed_when: false
   when: neovim_ruby_version | string
-
-- name: Installing neovim plugins
-  git:
-    repo: "{{ item.repo }}"
-    depth: "1"
-    force: yes
-    recursive: yes
-    dest: "{{ ansible_env.HOME }}/.local/share/nvim/site/pack/plugins/start/{{ item.name }}"
-  with_items: "{{ neovim_plugins }}"
-
-- name: Installing neovim color schemes
-  git:
-    repo: "{{ item.repo }}"
-    depth: "1"
-    force: yes
-    recursive: yes
-    dest: "{{ ansible_env.HOME }}/.local/share/nvim/site/pack/colors/opt/{{ item.name }}"
-  with_items: "{{ neovim_colorschemes }}"
-
-- name: Installing language server
-  command:
-    chdir: "{{ ansible_env.HOME }}/.local/share/nvim/site/pack/plugins/start/LanguageClient-neovim"
-    cmd: bash install.sh
-  register: neovim_language_server
-  changed_when: "'skip install' not in neovim_language_server.stdout"
-  loop: "{{ neovim_plugins }}"
-  when: "'LanguageClient-neovim' in item.repo"
-
-- name: Compiling vim-markdown-composer
-  command:
-    chdir: "{{ ansible_env.HOME }}/.local/share/nvim/site/pack/plugins/start/vim-markdown-composer"
-    cmd: cargo build --release --locked
-  register: neovim_markdown_composer
-  changed_when: neovim_markdown_composer.stderr_lines | length != 1
-  loop: "{{ neovim_plugins }}"
-  when: "'vim-markdown-composer' in item.repo"
