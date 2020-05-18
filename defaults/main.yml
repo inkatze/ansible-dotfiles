@@ -43,8 +43,6 @@ mas_applications: []
 neovim_formulas: []
 neovim_python: []
 neovim_ruby_version: ''
-neovim_plugins: []
-neovim_colorschemes: []
 
 # osx.yml
 osx_defaults: []
