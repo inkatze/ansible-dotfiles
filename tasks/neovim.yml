@@ -14,6 +14,10 @@
     recursive: yes
     dest: "{{ ansible_env.HOME }}/.local/share/nvim/site/autoload"
 
+- name: Installing neovim plugins
+  shell: nvim +'silent PlugUpdate --sync' +'silent UpdateRemotePlugins --sync' +qa &> /dev/null < /dev/tty
+  changed_when: false
+
 - name: Installing neovim's node package globally
   npm:
     name: "{{ item.name }}"
