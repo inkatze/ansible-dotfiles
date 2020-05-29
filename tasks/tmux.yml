@@ -6,11 +6,10 @@
     state: latest
     update_homebrew: yes
 
-- name: Updating tmux theme
+- name: Installing Tmux Plugin Manager
   git:
-    repo: https://github.com/jimeh/tmux-themepack.git
+    repo: https://github.com/tmux-plugins/tpm
     depth: "1"
     force: yes
     recursive: yes
-    dest:  "{{ ansible_env.HOME }}/.tmux-themepack"
-  when: tmux_formulas | list
+    dest: "{{ ansible_env.HOME }}/.tmux/plugins/tpm"
