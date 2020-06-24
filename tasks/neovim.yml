@@ -24,7 +24,7 @@
     version: "{{ item.version }}"
     global: yes
   with_items:
-    - { name: javascript-typescript-langserver, version: latest }
+    - { name: typescript-language-server, version: latest }
     - { name: neovim, version: latest }
     - { name: yaml-language-server, version: 0.4.1 }
   when: ('node' in neovim_formulas or 'npm' in neovim_formulas)
