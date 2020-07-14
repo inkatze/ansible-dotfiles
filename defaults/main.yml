@@ -26,6 +26,7 @@ nvmrc_source_file: ''
 tmux_source_file: ''
 ruby_global_version_source_file: ''
 mysql_config_source_file: ''
+import_js_config_source_file: ''
 
 # fish.yml
 fish_formulas: []
