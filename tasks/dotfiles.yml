@@ -62,7 +62,7 @@
     dest: "{{ ansible_env.HOME }}/.tmux.conf"
   when: tmux_source_file | string
 
-- name: Updating import js config file
+- name: Updating importjs config file
   copy:
     src: "{{ import_js_config_source_file }}"
     dest: "{{ ansible_env.HOME }}/.importjs.js"
