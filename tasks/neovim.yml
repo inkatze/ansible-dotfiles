@@ -28,6 +28,7 @@
     - { name: neovim, version: latest }
     - { name: import-js, version: latest }
     - { name: yaml-language-server, version: 0.4.1 }
+    - { name: vim-language-server, version: latest }
   when: ('node' in neovim_formulas or 'npm' in neovim_formulas)
 
 - name: Checking Installed Python interpreters
