@@ -18,17 +18,12 @@
   shell: nvim +'silent PlugUpdate --sync' +'silent UpdateRemotePlugins --sync' +qa &> /dev/null < /dev/tty
   changed_when: false
 
-- name: Installing neovim's node package globally
+- name: Installing neovim's node packages globally
   npm:
     name: "{{ item.name }}"
     version: "{{ item.version }}"
     global: yes
-  with_items:
-    - { name: typescript-language-server, version: latest }
-    - { name: neovim, version: latest }
-    - { name: import-js, version: latest }
-    - { name: yaml-language-server, version: 0.4.1 }
-    - { name: vim-language-server, version: latest }
+  with_items: "{{ neovim_node_packages }}"
   when: ('node' in neovim_formulas or 'npm' in neovim_formulas)
 
 - name: Checking Installed Python interpreters
