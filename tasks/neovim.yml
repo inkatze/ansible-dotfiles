@@ -76,12 +76,10 @@
     executable: "{{ ansible_env.HOME }}/.rbenv/versions/{{ neovim_ruby_version }}/bin/gem"
   environment:
     RBENV_VERSION: "{{ neovim_ruby_version }}"
-    RBENV_GEMSETS: global
   with_items:
     - neovim
     - solargraph
     - bundler
-  when: neovim_ruby_version | string
 
 - name: Rehashing environments
   command: "{{ item }} rehash"

@@ -141,7 +141,6 @@ The one true editor.
 - `neovim__python2_version`: Python 2 version used by neovim's python host program.
 - `neovim_python2_virtualenv`: Name of the Python 2 virtual env to be crated with neovim's host program.
 - `neovim__ruby_version`: Ruby version used by neovim's ruby host program.
-- `neovim_ruby_gemset`: Name of the gemset where neovim's gems are going to be installed.
 - `neovim_plugins`: List of key-value pairs with the `name` of the plugin and the `repo`'s url.'
 - `neovim_colorschemes`: List of repos containing neovim's color schemes.
 
