@@ -1,5 +1,9 @@
 ---
 
+- import_tasks: upgrade.yml
+  tags:
+    - upgrade
+
 - import_tasks: homebrew.yml
   tags:
     - homebrew

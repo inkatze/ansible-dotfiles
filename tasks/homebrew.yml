@@ -9,13 +9,11 @@
 - name: Installing homebrew formulas
   homebrew:
     name: "{{ homebrew_formulas }}"
-    update_homebrew: yes
-    state: latest
+    state: present
   when: homebrew_formulas | list
 
 - name: Installing cask applications
   homebrew_cask:
     name: "{{ homebrew_cask_applications }}"
-    update_homebrew: yes
-    state: upgraded
+    state: present
   when: homebrew_cask_applications | list

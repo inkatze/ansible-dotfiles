@@ -88,3 +88,13 @@ jobs:
             brew install ansible
       - name: Testing osx tasks
         run: make osx
+  test-upgrade:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Installing dependencies
+        run: |
+          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)" && \
+            brew install ansible
+      - name: Testing hombrew upgrade
+        run: make upgrade

@@ -3,8 +3,7 @@
 - name: Installing gpg formulas
   homebrew:
     name: "{{ gpg_formulas }}"
-    state: latest
-    update_homebrew: yes
+    state: present
   when: gpg_formulas | list
 
 - name: Creating gpg config directory

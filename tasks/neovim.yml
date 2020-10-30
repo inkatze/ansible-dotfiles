@@ -3,7 +3,7 @@
 - name: Installing neovim formulas
   homebrew:
     name: "{{ neovim_formulas }}"
-    state: latest
+    state: present
   when: neovim_formulas | list
 
 - name: Installing vim-plug

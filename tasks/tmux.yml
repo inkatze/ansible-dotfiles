@@ -3,8 +3,7 @@
 - name: Installing tmux formulas
   homebrew:
     name: "{{ tmux_formulas }}"
-    state: latest
-    update_homebrew: yes
+    state: present
 
 - name: Installing Tmux Plugin Manager
   git:

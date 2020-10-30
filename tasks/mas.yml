@@ -3,8 +3,7 @@
 - name: Installing mas formulas
   homebrew:
     name: "{{ mas_formulas }}"
-    state: latest
-    update_homebrew: yes
+    state: present
 
 - name: Listing installed MAS apps
   command: mas list

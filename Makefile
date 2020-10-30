@@ -5,7 +5,7 @@ SHELL = /bin/bash
 install:
 	# Install all the dot files
 	cd playbook && \
-	ansible-playbook main.yml -t homebrew,gpg,ssh,dotfiles,tmux,fish,neovim,osx,mas
+	ansible-playbook main.yml -t upgrade,homebrew,gpg,ssh,dotfiles,tmux,fish,neovim,osx,mas
 
 homebrew:
 	cd playbook && \
@@ -48,3 +48,7 @@ shell:
 	# Requires privilege escalation because of the /etc/shells file
 	cd playbook && \
     ansible-playbook main.yml -t shell -K
+
+upgrade:
+	cd playbook && \
+	ansible-playbook main.yml -t upgrade

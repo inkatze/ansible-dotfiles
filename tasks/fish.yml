@@ -3,8 +3,7 @@
 - name: Installing fish formulas
   homebrew:
     name: "{{ fish_formulas}}"
-    state: latest
-    update_homebrew: yes
+    state: present
   when: fish_formulas | list
 
 - name: Creating fish configuration directory
