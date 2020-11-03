@@ -9,3 +9,8 @@
   homebrew_cask:
     name: ''
     upgrade_all: yes
+
+- name: Upgrading MAS apps
+  command: mas upgrade
+  register: mas_upgrade_status
+  changed_when: "'Everything is up-to-date' not in mas_upgrade_status.stdout"
