@@ -33,7 +33,7 @@
   when: fish_formulas | list
 
 - name: Retrieving installed fisherman packages
-  shell: fisher ls
+  shell: fisher list
   args:
     executable: /usr/local/bin/fish
   register: fisherman_plugins
@@ -43,7 +43,7 @@
   when: fish_formulas | list
 
 - name: Installing fish plugins
-  shell: fisher add {{ item }}
+  shell: fisher install {{ item }}
   args:
     executable: /usr/local/bin/fish
   with_items: "{{ fish_plugins }}"
