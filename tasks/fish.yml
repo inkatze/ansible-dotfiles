@@ -38,6 +38,7 @@
     executable: /usr/local/bin/fish
   register: fisherman_plugins
   changed_when: false
+  failed_when: false
   tags:   # This needs fish
     - skip_ansible_lint
   when: fish_formulas | list
