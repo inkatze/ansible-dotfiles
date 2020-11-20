@@ -25,7 +25,6 @@
     global: yes
     state: latest
   with_items: "{{ neovim_node_packages }}"
-  when: ('node' in neovim_formulas or 'npm' in neovim_formulas)
 
 - name: Checking Installed Python interpreters
   command: pyenv versions
