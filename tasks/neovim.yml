@@ -6,6 +6,16 @@
     state: present
   when: neovim_formulas | list
 
+- name: Adding universal-tags tap
+  homebrew_tap:
+    name: universal-ctags/universal-ctags
+    state: present
+
+- name: Installing universal-ctags with json support
+  homebrew:
+    name: universal-ctags/universal-ctags/universal-ctags
+    install_options: 'with-jansson,HEAD'
+
 - name: Installing vim-plug
   git:
     repo: https://github.com/junegunn/vim-plug.git
