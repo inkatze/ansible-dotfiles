@@ -18,3 +18,12 @@
 - name: Updating neovim plugins
   shell: nvim +'silent PlugUpdate --sync' +'silent UpdateRemotePlugins --sync' +qa &> /dev/null < /dev/tty
   changed_when: false
+
+- name: Updating fisherman plugins
+  shell: fisher
+  args:
+    executable: /usr/local/bin/fish
+  changed_when: false
+  tags:   # This needs fish
+    - skip_ansible_lint
+  when: fish_formulas | list

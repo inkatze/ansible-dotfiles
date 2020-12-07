@@ -51,12 +51,3 @@
   when: "fish_formulas | list and item not in fisherman_plugins.stdout"
   tags:   # This needs fish
     - skip_ansible_lint
-
-- name: Updating fisherman plugins
-  shell: fisher
-  args:
-    executable: /usr/local/bin/fish
-  changed_when: false
-  tags:   # This needs fish
-    - skip_ansible_lint
-  when: fish_formulas | list
