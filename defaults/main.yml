@@ -32,6 +32,7 @@ import_js_config_source_file: ''
 fish_formulas: []
 fish_config_source_path: ''
 fish_plugins: []
+starship_source_path: ''
 
 # tmux
 tmux_formulas: []

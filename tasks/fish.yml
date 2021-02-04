@@ -51,3 +51,9 @@
   when: "fish_formulas | list and item not in fisherman_plugins.stdout"
   tags:   # This needs fish
     - skip_ansible_lint
+
+- name: Updating theme configuration
+  copy:
+    src: "{{ starship_source_path }}"
+    dest: "{{ ansible_env.HOME }}/.config/starship.toml"
+  when: mysql_config_source_file | string
