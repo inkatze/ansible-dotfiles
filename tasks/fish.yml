@@ -56,4 +56,4 @@
   copy:
     src: "{{ starship_source_path }}"
     dest: "{{ ansible_env.HOME }}/.config/starship.toml"
-  when: mysql_config_source_file | string
+  when: starship_source_path | string
