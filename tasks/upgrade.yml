@@ -1,15 +1,5 @@
 ---
 
-- name: Upgrading hombrew packages
-  homebrew:
-    update_homebrew: yes
-    upgrade_all: yes
-
-- name: Upgrading cask applications
-  homebrew_cask:
-    name: ''
-    upgrade_all: yes
-
 - name: Upgrading MAS apps
   command: mas upgrade
   register: mas_upgrade_status
