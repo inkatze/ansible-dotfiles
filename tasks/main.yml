@@ -20,10 +20,6 @@
   tags:
     - dotfiles
 
-- import_tasks: fish.yml
-  tags:
-    - fish
-
 - import_tasks: tmux.yml
   tags:
     - tmux
@@ -40,7 +36,3 @@
   tags:
     - mas
   when: mas_formulas | list
-
-- import_tasks: shell.yml
-  tags:
-    - shell
