@@ -4,10 +4,6 @@
   tags:
     - upgrade
 
-- import_tasks: homebrew.yml
-  tags:
-    - homebrew
-
 - import_tasks: gpg.yml
   tags:
     - gpg

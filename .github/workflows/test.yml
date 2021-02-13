@@ -18,16 +18,6 @@ jobs:
       - name: Running static checks
         run: |
           cd playbook && ansible-playbook main.yml --syntax-check
-  test-homebrew:
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v1
-      - name: Installing dependencies
-        run: |
-          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)" && \
-            brew install ansible
-      - name: Testing homebrew tasks
-        run: make homebrew
   test-gpg:
     runs-on: macos-latest
     steps:

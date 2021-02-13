@@ -5,11 +5,7 @@ SHELL = /bin/bash
 install:
 	# Install all the dot files
 	cd playbook && \
-	ansible-playbook main.yml -t upgrade,homebrew,gpg,ssh,dotfiles,tmux,neovim,osx,mas
-
-homebrew:
-	cd playbook && \
-	ansible-playbook main.yml -t homebrew
+	ansible-playbook main.yml -t upgrade,gpg,ssh,dotfiles,tmux,neovim,osx,mas
 
 gpg:
 	cd playbook && \
