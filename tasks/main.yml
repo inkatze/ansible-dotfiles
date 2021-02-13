@@ -23,12 +23,3 @@
 - import_tasks: neovim.yml
   tags:
     - neovim
-
-- import_tasks: osx.yml
-  tags:
-    - osx
-
-- import_tasks: mas.yml
-  tags:
-    - mas
-  when: mas_formulas | list

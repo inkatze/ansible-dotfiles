@@ -1,10 +1,5 @@
 ---
 
-- name: Upgrading MAS apps
-  command: mas upgrade
-  register: mas_upgrade_status
-  changed_when: "(mas_upgrade_status.stdout is defined) and ('Everything is up-to-date' not in mas_upgrade_status.stdout)"
-
 - name: Updating neovim plugins
   shell: nvim +'silent PlugUpdate --sync' +'silent UpdateRemotePlugins --sync' +qa &> /dev/null < /dev/tty
   changed_when: false
