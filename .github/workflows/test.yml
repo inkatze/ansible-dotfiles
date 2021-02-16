@@ -58,13 +58,3 @@ jobs:
             brew install ansible
       - name: Testing tmux tasks
         run: make tmux
-  test-upgrade:
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v1
-      - name: Installing dependencies
-        run: |
-          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)" && \
-            brew install ansible mas
-      - name: Testing neovim
-        run: make neovim
