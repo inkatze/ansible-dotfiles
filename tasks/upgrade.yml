@@ -1,5 +1,0 @@
----
-
-- name: Updating neovim plugins
-  shell: nvim +'silent PlugUpdate --sync' +'silent UpdateRemotePlugins --sync' +qa &> /dev/null < /dev/tty
-  changed_when: false

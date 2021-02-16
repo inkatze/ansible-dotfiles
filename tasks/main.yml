@@ -1,9 +1,5 @@
 ---
 
-- import_tasks: upgrade.yml
-  tags:
-    - upgrade
-
 - import_tasks: gpg.yml
   tags:
     - gpg

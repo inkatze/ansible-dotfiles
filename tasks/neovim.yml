@@ -98,3 +98,9 @@
     - rbenv
   changed_when: false
   when: neovim_ruby_version | string
+
+- name: Updating neovim plugins
+  shell: nvim +'silent PlugUpdate --sync' +'silent UpdateRemotePlugins --sync' +qa &> /dev/null < /dev/tty
+  changed_when: false
+  tags:
+    - upgrade
