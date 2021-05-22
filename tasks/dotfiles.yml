@@ -32,12 +32,6 @@
     dest: "{{ ansible_env.HOME }}/.gitconfig"
   when: gitconfig_source_file | string
 
-- name: Updating neovim's configuration folder
-  copy:
-    src: "{{ neovim_config_path }}"
-    dest: "{{ ansible_env.HOME }}/.config"
-  when: neovim_config_path | string
-
 - name: Updating pylintrc
   copy:
     src: "{{ pylintrc_source_file  }}"

@@ -23,10 +23,6 @@ tmux:
 	cd playbook && \
     ansible-playbook main.yml -t tmux
 
-neovim:
-	cd playbook && \
-	ansible-playbook main.yml -t neovim
-
 upgrade:
 	cd playbook && \
 	ansible-playbook main.yml -t upgrade
