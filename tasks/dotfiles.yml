@@ -1,5 +1,4 @@
 ---
-
 - name: Creating fish configuration directory
   file:
     path: "{{ ansible_env.HOME }}/.config/fish"
@@ -61,18 +60,6 @@
     src: "{{ import_js_config_source_file }}"
     dest: "{{ ansible_env.HOME }}/.importjs.js"
   when: import_js_config_source_file | string
-
-- name: Creating rbenv directory
-  file:
-    path: "{{ ansible_env.HOME }}/.rbenv"
-    state: directory
-  when: ruby_global_version_source_file | string
-
-- name: Updating global ruby version
-  copy:
-    src: "{{ ruby_global_version_source_file }}"
-    dest: "{{ ansible_env.HOME }}/.rbenv/version"
-  when: ruby_global_version_source_file | string
 
 - name: Updating my.cnf
   copy:
