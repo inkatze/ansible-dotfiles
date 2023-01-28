@@ -79,3 +79,9 @@
     src: "{{ efm_config_source_file }}"
     dest: "{{ ansible_env.HOME }}/.config/efm-langserver/config.yaml"
   when: efm_config_source_file | string
+
+- name: Update default-mix-commands
+  copy:
+    src: "{{ default_mix_commands_source_file }}"
+    dest: "{{ ansible_env.HOME }}/.default-mix-commands"
+  when: default_mix_commands_source_file | string

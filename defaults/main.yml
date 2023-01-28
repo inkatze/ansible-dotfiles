@@ -28,6 +28,7 @@ ruby_global_version_source_file: ''
 mysql_config_source_file: ''
 import_js_config_source_file: ''
 efm_config_source_file: ''
+default_mix_commands_source_file: ''
 
 # fish.yml
 fish_formulas: []
