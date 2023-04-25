@@ -67,21 +67,14 @@
     dest: "{{ ansible_env.HOME }}/.my.cnf"
   when: mysql_config_source_file | string
 
-- name: Creating elixir's efm configuration directory
-  file:
-    path: "{{ ansible_env.HOME }}/.config/efm-langserver"
-    recurse: yes
-    state: directory
-  when: efm_config_source_file | string
-
-- name: Update elixir's efm server configuration
-  copy:
-    src: "{{ efm_config_source_file }}"
-    dest: "{{ ansible_env.HOME }}/.config/efm-langserver/config.yaml"
-  when: efm_config_source_file | string
-
 - name: Update default-mix-commands
   copy:
     src: "{{ default_mix_commands_source_file }}"
     dest: "{{ ansible_env.HOME }}/.default-mix-commands"
   when: default_mix_commands_source_file | string
+
+- name: Update default asdf's erlang and elixir versions
+  copy:
+    src: "{{ tool_versions_source_file }}"
+    dest: "{{ ansible_env.HOME }}/.tool-versions"
+  when: tool_versions_source_file | string
