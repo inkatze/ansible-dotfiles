@@ -43,12 +43,6 @@
     dest: "{{ ansible_env.HOME }}/.npmrc"
   when: npmrc_source_file | string
 
-- name: Updating nvmrc
-  copy:
-    src: "{{ nvmrc_source_file }}"
-    dest: "{{ ansible_env.HOME }}/.nvmrc"
-  when: nvmrc_source_file | string
-
 - name: Updating tmux.conf
   copy:
     src: "{{ tmux_source_file }}"
@@ -67,14 +61,32 @@
     dest: "{{ ansible_env.HOME }}/.my.cnf"
   when: mysql_config_source_file | string
 
+- name: Update default asdf's tools versions
+  copy:
+    src: "{{ tool_versions_source_file }}"
+    dest: "{{ ansible_env.HOME }}/.tool-versions"
+  when: tool_versions_source_file | string
+
+- name: Update asdf's rc file
+  copy:
+    src: "{{ asdfrc_source_file }}"
+    dest: "{{ ansible_env.HOME }}/.asdfrc"
+  when: asdfrc_source_file | string
+
 - name: Update default-mix-commands
   copy:
     src: "{{ default_mix_commands_source_file }}"
     dest: "{{ ansible_env.HOME }}/.default-mix-commands"
   when: default_mix_commands_source_file | string
 
-- name: Update default asdf's erlang and elixir versions
+- name: Update default-npm-packages
   copy:
-    src: "{{ tool_versions_source_file }}"
-    dest: "{{ ansible_env.HOME }}/.tool-versions"
-  when: tool_versions_source_file | string
+    src: "{{ default_npm_packages_source_file }}"
+    dest: "{{ ansible_env.HOME }}/.default-npm-packages"
+  when: default_npm_packages_source_file | string
+
+- name: Update default-gems
+  copy:
+    src: "{{ default_gems_source_file }}"
+    dest: "{{ ansible_env.HOME }}/.default-gems"
+  when: default_gems_source_file | string

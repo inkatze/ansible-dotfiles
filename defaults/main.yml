@@ -21,13 +21,15 @@ gitconfig_source_file: ""
 neovim_config_path: ""
 pylintrc_source_file: ""
 npmrc_source_file: ""
-nvmrc_source_file: ""
 tmux_source_file: ""
 ruby_global_version_source_file: ""
 mysql_config_source_file: ""
 import_js_config_source_file: ""
 default_mix_commands_source_file: ""
 tool_versions_source_file: ""
+default_npm_packages_source_file: ""
+default_gems_source_file: ""
+asdfrc_source_file: ""
 
 # fish.yml
 fish_formulas: []

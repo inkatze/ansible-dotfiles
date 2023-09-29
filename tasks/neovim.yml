@@ -1,31 +1,12 @@
 ---
-
 - name: Installing neovim formulas
   homebrew:
     name: "{{ neovim_formulas }}"
     state: present
   when: neovim_formulas | list
 
-- name: Adding universal-tags tap
-  homebrew_tap:
-    name: universal-ctags/universal-ctags
-    state: present
-
-- name: Installing universal-ctags with json support
-  homebrew:
-    name: universal-ctags/universal-ctags/universal-ctags
-    install_options: 'with-jansson,HEAD'
-
-- name: Installing vim-plug
-  git:
-    repo: https://github.com/junegunn/vim-plug.git
-    depth: "1"
-    force: yes
-    recursive: yes
-    dest: "{{ ansible_env.HOME }}/.local/share/nvim/site/autoload"
-
 - name: Installing neovim plugins
-  shell: nvim +'silent PlugUpdate --sync' +'silent UpdateRemotePlugins --sync' +qa &> /dev/null < /dev/tty
+  shell: nvim -c "Lazy! install" +qa &> /dev/null < /dev/tty
   changed_when: false
 
 - name: Installing neovim's node packages globally
@@ -68,39 +49,14 @@
     state: latest
   with_items: "{{ neovim_python }}"
 
-- name: Checking installed ruby interpreters
-  command: rbenv versions
-  register: ruby_versions
-  changed_when: false
-  when: neovim_ruby_version | string
-
 - name: Installing Ruby interpreter for neovim
-  command: rbenv install {{ neovim_ruby_version }}
-  when: neovim_ruby_version and not (neovim_ruby_version in ruby_versions.stdout)
-
-- name: Installing Ruby's neovim gems
-  gem:
-    name: "{{ item }}"
-    state: latest
-    user_install: no
-    executable: "{{ ansible_env.HOME }}/.rbenv/versions/{{ neovim_ruby_version }}/bin/gem"
-  environment:
-    RBENV_VERSION: "{{ neovim_ruby_version }}"
-  with_items:
-    - neovim
-    - solargraph
-    - bundler
+  command: asdf install ruby
 
 - name: Rehashing environments
-  command: "{{ item }} rehash"
-  with_items:
-    - pyenv
-    - rbenv
-  changed_when: false
-  when: neovim_ruby_version | string
+  command: asdf reshim
 
 - name: Updating neovim plugins
-  shell: nvim +'silent PlugUpdate --sync' +'silent UpdateRemotePlugins --sync' +qa &> /dev/null < /dev/tty
+  shell: nvim -c "Lazy! sync" +qa &> /dev/null < /dev/tty
   changed_when: false
   tags:
     - upgrade
