@@ -90,3 +90,9 @@
     src: "{{ default_gems_source_file }}"
     dest: "{{ ansible_env.HOME }}/.default-gems"
   when: default_gems_source_file | string
+
+- name: Update default-python-packages
+  copy:
+    src: "{{ default_python_packages_source_file }}"
+    dest: "{{ ansible_env.HOME }}/.default-python-packages"
+  when: default_python_packages_source_file | string
